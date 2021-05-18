@@ -18,7 +18,9 @@ pipeline {
 			post {
 				failure {
 					script {
+						echo 'Build failed'
 						var=false
+						echo var
 					}
 				}
 			}
@@ -34,9 +36,6 @@ pipeline {
 							echo 'Testing...'
 							sh '~/docker-compose up -d lab05_test' 
 						}
-					}
-					else {
-						echo 'Build failed'
 					}
 				}
 			}
