@@ -20,7 +20,6 @@ pipeline {
 		success {
 			emailext attachLog: true,
 			body: 'Build ${env.JOB_NAME} result: ${currentBuild.currentResult}',
-			recipientProviders: [developers()],
 			subject: 'Build succesfull',
 			to: 'emil_kobylecki@onet.eu'
 		}
@@ -28,7 +27,6 @@ pipeline {
 		failure {
 			emailext attachLog: true,
 			body: 'Build ${env.JOB_NAME} result: ${currentBuild.currentResult}',
-			recipientProviders: [developers()],
 			subject: 'Build unsuccesfull',
 			to: 'emil_kobylecki@onet.eu'
 		}
