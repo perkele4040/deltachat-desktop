@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	environment {
-		var=false
+		var=true
 	}
 	stages {
 		stage('Build') {
