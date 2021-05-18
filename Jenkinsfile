@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	environment {
-		success=false
+		var=false
 	}
 	stages {
 		stage('Build') {
@@ -17,7 +17,7 @@ pipeline {
 			post {
 				failure {
 					script {
-						success=false
+						var=false
 					}
 				}
 			}
@@ -27,7 +27,7 @@ pipeline {
 		stage('Test') {
 			steps {
 				script {
-					if(success) {
+					if(var) {
 						dir('Grupy/Grupa02/EK306459/Lab07/Docker') {
 							echo 'Testing...'
 							sh '~/docker-compose up -d lab05_test' 
