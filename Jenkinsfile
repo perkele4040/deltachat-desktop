@@ -30,7 +30,7 @@ pipeline {
 		stage('Test') {
 			steps {
 				script {
-					if(var==true) {
+					if(var) {
 						dir('Grupy/Grupa02/EK306459/Lab07/Docker') {
 							echo 'Build finished'
 							echo 'Testing...'
