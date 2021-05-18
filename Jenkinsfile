@@ -1,17 +1,38 @@
 pipeline {
 	agent any
 	stages {
-		stage('Build') {
+		stage('BuildTest') {
 			steps {
 				echo 'Downloading and building...'
 				git branch: 'Grupa02-EK306459_Lab07', url: 'https://github.com/InzynieriaOprogramowaniaAGH/MIFT2021'
 				dir('Grupy/Grupa02/EK306459/Lab07/Docker') {
 				sh 'curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose'
 				sh 'chmod +x ~/docker-compose'
-				sh '~/docker-compose up -d lab05_chat' 
+				sh '~/docker-compose up -d lab05_chat'
+				echo 'Testing...'
+				sh '~/docker-compose up -d lab05_test' 
 				}
 			}
 		}
 	}
+
+	post {
+		success {
+			emailext attachLog: true,
+			body: 'Build ${env.JOB_NAME} result: ${currentBuild.currentResult}',
+			recipientProviders: [developers()],
+			subject: 'Build succesfull',
+			to: 'emil_kobylecki@onet.eu'
+		}
+
+		failure {
+			emailext attachLog: true,
+			body: 'Build ${env.JOB_NAME} result: ${currentBuild.currentResult}',
+			recipientProviders: [developers()],
+			subject: 'Build unsuccesfull',
+			to: 'emil_kobylecki@onet.eu'
+		}
+	}
+}
 
 }
