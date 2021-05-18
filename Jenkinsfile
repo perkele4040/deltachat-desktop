@@ -28,11 +28,15 @@ pipeline {
 		stage('Test') {
 			steps {
 				script {
-					if(var) {
+					if(var==true) {
 						dir('Grupy/Grupa02/EK306459/Lab07/Docker') {
+							echo 'Build finished'
 							echo 'Testing...'
 							sh '~/docker-compose up -d lab05_test' 
 						}
+					}
+					else {
+						echo 'Build failed'
 					}
 				}
 			}
