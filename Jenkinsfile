@@ -1,7 +1,9 @@
 pipeline {
 	agent any
 	environment {
-		buildSuccess = 'true'
+		buildSuccess = 'success'
+		testSuccess = 'success'
+		
 	}
 	stages {
 		stage('Build') {
@@ -13,7 +15,6 @@ pipeline {
 				sh 'curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose'
 				sh 'chmod +x ~/docker-compose'
 				sh '~/docker-compose up -d lab05_chat'
-				script { buildSuccess = 'true' }
 				
 				}
 			}
@@ -22,7 +23,8 @@ pipeline {
 					script {
 						echo 'Build failed'
 						
-						buildSuccess = 'false'
+						buildSuccess = 'failure'
+						testSuccess = 'not reached'
 						echo buildSuccess
 					}
 				}
@@ -31,7 +33,7 @@ pipeline {
 		
 		
 		stage('Test') {
-			when { expression { buildSuccess == 'true' } }
+			when { expression { buildSuccess == 'success' } }
 			steps {
 				dir('Grupy/Grupa02/EK306459/Lab07/Docker') {
 					echo 'Build finished'
@@ -39,20 +41,27 @@ pipeline {
 					sh '~/docker-compose up -d lab05_test' 
 					}
 				}
+			post {
+				failure {
+					script {
+						testSuccess = 'failure'
+					}
+				}
+			}
 		}
 	}
 
 	post {
 		success {
 			emailext attachLog: true,
-			body: 'Build ${env.JOB_NAME} succesfull, logs in attachment.',
+				body: 'Build stage: ${buildSuccess}, testing stage: ${testSuccess}, logs in attachment.',
 			subject: 'Build succesfull',
 			to: 'emil_kobylecki@onet.eu'
 		}
 
 		failure {
 			emailext attachLog: true,
-			body: 'Build ${env.JOB_NAME} unsuccesfull, logs in attachment.',
+			body: 'Build stage: ${buildSuccess}, testing stage: ${testSuccess}, logs in attachment.',
 			subject: 'Build unsuccesfull',
 			to: 'emil_kobylecki@onet.eu'
 		}
