@@ -1,7 +1,7 @@
 pipeline {
 	agent any
-	environment {
-		var=true
+	parameters {
+		bool{var: true}
 	}
 	stages {
 		stage('Build') {
@@ -13,7 +13,7 @@ pipeline {
 				sh 'curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose'
 				sh 'chmod +x ~/docker-compose'
 				sh '~/docker-compose up -d lab05_chat'
-				var=false
+				
 				echo 'var changed'
 				echo var
 				}
