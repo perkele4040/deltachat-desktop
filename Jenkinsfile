@@ -9,7 +9,6 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Downloading and building...'
-				echo 'webhook test'
 				git branch: 'Grupa02', url: 'https://github.com/InzynieriaOprogramowaniaAGH/MIFT2021'
 				dir('Grupy/Grupa02/EK306459/Docker') {
 				sh 'curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose'
