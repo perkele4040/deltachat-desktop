@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	parameters {
-		booleanParam(var: true)
+		booleanParam(name: 'var', defaultValue: true, description: 'Decides whether to test')
 	}
 	stages {
 		stage('Build') {
