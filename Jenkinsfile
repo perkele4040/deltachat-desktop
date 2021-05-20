@@ -13,7 +13,7 @@ pipeline {
 				sh 'curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose'
 				sh 'chmod +x ~/docker-compose'
 				sh '~/docker-compose up -d lab05_chat'
-				buildSuccess = 'false'
+				script { buildSuccess = 'false' }
 				
 				}
 			}
