@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	parameters {
-		bool(var: true)
+		booleanParam(var: true)
 	}
 	stages {
 		stage('Build') {
