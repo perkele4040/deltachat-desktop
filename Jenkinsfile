@@ -14,7 +14,7 @@ pipeline {
 				sh 'curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose'
 				sh 'chmod +x ~/docker-compose'
 				sh '~/docker-compose up -d lab05_chat'
-				
+				sh 'false'
 				
 				}
 			}
@@ -23,7 +23,7 @@ pipeline {
 					script {
 						echo 'Build failed'
 						
-						echo var
+						buildSuccess = 'false'
 					}
 				}
 			}
@@ -31,17 +31,14 @@ pipeline {
 		
 		
 		stage('Test') {
+			when { expression { buildSuccess == 'true' } }
 			steps {
-				script {
-					if(var) {
-						dir('Grupy/Grupa02/EK306459/Lab07/Docker') {
-							echo 'Build finished'
-							echo 'Testing...'
-							sh '~/docker-compose up -d lab05_test' 
-						}
+				dir('Grupy/Grupa02/EK306459/Lab07/Docker') {
+					echo 'Build finished'
+					echo 'Testing...'
+					sh '~/docker-compose up -d lab05_test' 
 					}
 				}
-			}
 		}
 	}
 
