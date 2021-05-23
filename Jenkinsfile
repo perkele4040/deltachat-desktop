@@ -55,7 +55,6 @@ pipeline {
 					echo 'Deploying latest build...'
 					sh '~/docker-compose up -d lab05_deploy'
 					sh 'docker tag lab05_deploy:latest perkele4040/perkelerepo'
-					sh 'docker push perkele4040/perkelerepo'
 				}
 			}
 			post {
@@ -71,7 +70,7 @@ pipeline {
 	post {
 		success {
 			emailext attachLog: true,
-				body: "Build stage: ${buildSuccess}, testing stage: ${testSuccess}, deploy stage: ${deploySuccess}, logs in attachment.",
+			body: "Build stage: ${buildSuccess}, testing stage: ${testSuccess}, deploy stage: ${deploySuccess}, logs in attachment.",
 			subject: 'Build succesfull',
 			to: 'emil_kobylecki@onet.eu'
 		}
