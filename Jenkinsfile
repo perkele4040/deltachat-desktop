@@ -9,6 +9,8 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
+				echo 'automation test'
+				sh 'false'
 				echo 'Downloading and building...'
 				git branch: 'Grupa02', url: 'https://github.com/InzynieriaOprogramowaniaAGH/MIFT2021'
 				dir('Grupy/Grupa02/EK306459/Docker') {
