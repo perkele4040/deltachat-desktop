@@ -37,7 +37,6 @@ pipeline {
 				dir('Grupy/Grupa02/EK306459/Docker') {
 					echo 'Build finished'
 					echo 'Testing...'
-					sh 'false'
 					sh '~/docker-compose up -d lab05_test' 
 					}
 				}
