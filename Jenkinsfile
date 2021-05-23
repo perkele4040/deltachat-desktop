@@ -26,6 +26,7 @@ pipeline {
 						echo 'Build failed'
 						buildSuccess = 'failure'
 						testSuccess = 'not reached'
+						deploySuccess = 'not reached'
 					}
 				}
 			}
@@ -45,6 +46,7 @@ pipeline {
 				failure {
 					script {
 						testSuccess = 'failure'
+						deploySuccess = 'not reached'
 					}
 				}
 			}
