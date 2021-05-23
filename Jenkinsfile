@@ -9,8 +9,6 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
-				echo 'automation test'
-				sh 'false'
 				echo 'Downloading and building...'
 				git branch: 'Grupa02', url: 'https://github.com/InzynieriaOprogramowaniaAGH/MIFT2021'
 				dir('Grupy/Grupa02/EK306459/Docker') {
@@ -39,6 +37,7 @@ pipeline {
 				dir('Grupy/Grupa02/EK306459/Docker') {
 					echo 'Build finished'
 					echo 'Testing...'
+					sh 'false'
 					sh '~/docker-compose up -d lab05_test' 
 					}
 				}
