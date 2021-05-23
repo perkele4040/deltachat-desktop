@@ -71,14 +71,14 @@ pipeline {
 	post {
 		success {
 			emailext attachLog: true,
-				body: "Build stage: ${buildSuccess}, testing stage: ${testSuccess}, deploy stage: ${deploySuceess}, logs in attachment.",
+				body: "Build stage: ${buildSuccess}, testing stage: ${testSuccess}, deploy stage: ${deploySuccess}, logs in attachment.",
 			subject: 'Build succesfull',
 			to: 'emil_kobylecki@onet.eu'
 		}
 
 		failure {
 			emailext attachLog: true,
-			body: "Build stage: ${buildSuccess}, testing stage: ${testSuccess}, deploy stage: ${deploySuceess}, logs in attachment.",
+			body: "Build stage: ${buildSuccess}, testing stage: ${testSuccess}, deploy stage: ${deploySuccess}, logs in attachment.",
 			subject: 'Build unsuccesfull',
 			to: 'emil_kobylecki@onet.eu'
 		}
